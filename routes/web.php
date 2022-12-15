@@ -15,17 +15,19 @@ use App\Http\Controllers\VignetteController;
 |
 */
 
-Route::get('/landing', [ VignetteController::class, 'index']);
+Route::get('/', [ VignetteController::class, 'index']);
 
 Route::get('/vignettes', [ VignetteController::class, 'manage']);
 
 Route::get('show/{id}', [ VignetteController::class, 'show']);
 
-Route::get('create', [ VignetteController::class, 'create']);
+Route::get('create', [ VignetteController::class, 'create'])->name('create');
+Route::post('create', [ VignetteController::class, 'store'])->name('store');
 
-Route::get('edit/{id}', [ VignetteController::class, 'edit']);
+Route::get('edit/{id}', [ VignetteController::class, 'edit'])->name('edit');
+Route::post('edit/{id}', [ VignetteController::class, 'update'])->name('update');
 
-Route::get('delete/{id}', [ VignetteController::class, 'delete']);
+Route::delete('delete/{id}', [ VignetteController::class, 'destroy']);
 
 
 
@@ -36,3 +38,6 @@ Route::get('delete/{id}', [ VignetteController::class, 'delete']);
 Route::fallback(function () {
     return 'Hm, comment avez-vous atterri ici ?';
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class VignetteController extends Controller
 {
+    public function __construct(){
+        //$this->middleware('auth');
+         $this->middleware('auth')->except('index');
+        // $this->middleware('auth')->only('index','create');
+        }
     /**
      * Display a listing of the resource.
      *

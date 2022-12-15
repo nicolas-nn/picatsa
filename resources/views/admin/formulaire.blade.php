@@ -1,17 +1,21 @@
 
 @if( !empty($vignette)  )
-<form method="POST" action="edit/{{ $vignette->id }}">
-@method('PUT')
-@else
-<form method="POST" action="/create">
+
+<form method="POST" action="{{route('update',$vignette->id)}}">
 @method('POST')
+
+@else
+
+<form method="POST" action="{{route('store')}}">
+@method('POST')
+
 @endif
 
     @csrf
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Légende </label>
       <input type="text" class="form-control" name="legend" id="exampleInputEmail1" aria-describedby="emailHelp" 
-      value="{{ $vignette->legend ?? old('legend')}}">
+      value="{{ $vignette->legende ?? old('legend')}}">
       @error('legend')
       {{$message}}
       @enderror
