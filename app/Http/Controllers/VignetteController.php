@@ -14,9 +14,15 @@ class VignetteController extends Controller
      */
     public function index()
     {
-        //
+        $vignettes = Vignette::all();
+        return view('welcome',compact('vignettes'));
     }
 
+    public function manage()
+    {
+        $vignettes = Vignette::all();
+        return view('admin.vignettes',compact('vignettes'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -24,7 +30,7 @@ class VignetteController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.formulaire');
     }
 
     /**
@@ -35,7 +41,19 @@ class VignetteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'legende' => 'required|max:75',
+            'description'  => 'required|max:100',
+        ]);
+
+        
+        $vignette = new Vignette;
+        $vignette->legende = $request->legende;
+        $vignette->url = $request->url;
+        $vignette->description = $request->description;
+        $vignette->statut = $request->statut;
+        $vignette->save();
+        return redirect('admin.vignettes');
     }
 
     /**
@@ -44,9 +62,10 @@ class VignetteController extends Controller
      * @param  \App\Models\Vignette  $vignette
      * @return \Illuminate\Http\Response
      */
-    public function show(Vignette $vignette)
+    public function show($id)
     {
-        //
+        $vignette = Vignette::find($id);
+        return view('admin.show',compact('vignette'));
     }
 
     /**
@@ -55,9 +74,10 @@ class VignetteController extends Controller
      * @param  \App\Models\Vignette  $vignette
      * @return \Illuminate\Http\Response
      */
-    public function edit(Vignette $vignette)
+    public function edit($id)
     {
-        //
+        $vignette = Vignette::find($id);
+        return view('admin.formulaire',compact('vignette'));
     }
 
     /**
@@ -67,9 +87,16 @@ class VignetteController extends Controller
      * @param  \App\Models\Vignette  $vignette
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Vignette $vignette)
-    {
-        //
+    public function update(Request $request, $id)
+    {   
+        $vignette = Vignette::find($id);
+        $vignette->legende = $request->legende;
+        $vignette->url = $request->url;
+        $vignette->description = $request->description;
+        $vignette->statut = $request->statut;
+        $vignette->save();
+
+        return redirect('admin.vignettes');
     }
 
     /**
@@ -78,8 +105,10 @@ class VignetteController extends Controller
      * @param  \App\Models\Vignette  $vignette
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vignette $vignette)
+    public function destroy($id)
     {
-        //
+        $vignette = Vignette::find($id);
+        $vignette->delete();
+        return redirect('/vignettes');
     }
 }
