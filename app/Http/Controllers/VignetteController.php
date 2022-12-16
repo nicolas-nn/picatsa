@@ -51,14 +51,13 @@ class VignetteController extends Controller
             'description'  => 'required|max:100',
         ]);
 
-        
         $vignette = new Vignette;
         $vignette->legende = $request->legende;
         $vignette->url = $request->url;
         $vignette->description = $request->description;
         $vignette->statut = $request->statut;
         $vignette->save();
-        return redirect('admin.vignettes');
+        return redirect('vignettes');
     }
 
     /**
@@ -101,7 +100,7 @@ class VignetteController extends Controller
         $vignette->statut = $request->statut;
         $vignette->save();
 
-        return redirect('admin.vignettes');
+        return redirect('vignettes');
     }
 
     /**

@@ -14,9 +14,9 @@
     @csrf
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Légende </label>
-      <input type="text" class="form-control" name="legend" id="exampleInputEmail1" aria-describedby="emailHelp" 
+      <input type="text" class="form-control" name="legende" id="exampleInputEmail1" aria-describedby="emailHelp" 
       value="{{ $vignette->legende ?? old('legend')}}">
-      @error('legend')
+      @error('legende')
       {{$message}}
       @enderror
     </div>
@@ -38,10 +38,10 @@
       </div>
       <div class="mb-3">
         <label for="statut" class="form-label">Statut :</label>
-        <select name="pets" id="pet-select">
+        <select name="statut" id="pet-select">
             <option value="">--Please choose an option--</option>
-            <option value="true">Actif</option>
-            <option value="false">Inactif</option>
+            <option value="1">Actif</option>
+            <option value="0">Inactif</option>
             
         </select>
         @error('statut')

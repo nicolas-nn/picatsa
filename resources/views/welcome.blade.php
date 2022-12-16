@@ -4,10 +4,15 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>CatsLaravel</title>
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <!-- JavaScript Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
 
         <!-- Styles -->
         <style>
@@ -25,8 +30,12 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
+                    <a href="{{ url('/vignettes') }}" class="m-2 text-sm text-gray-700 dark:text-gray-500 underline">Vignettes</a>
+
+                    <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+
+                    
+                        @else
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 
                         @if (Route::has('register'))
@@ -50,16 +59,21 @@
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         
                         @foreach($vignettes as $vignette)
-                        <div class="card-deck">
-                            <div class="card">
-                              <img class="card-img-top h-16 w-auto"  src="{{$vignette->url}}" alt="Card image cap">
-                              <div class="card-body">
-                                <h5 class="card-title">{{$vignette->legende}}</h5>
-                                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <p class="card-text"><small class="text-muted">Statut: {{$vignette->statut}}</small></p>
-                              </div>
+                        @if($vignette->statut)
+                     
+                        <div class="card bg-red text-red m-3 shadow-lg p-3 mb-5 bg-white rounded ">
+                            <img class="card-img " src="{{$vignette->url}}" alt="Card image">
+                            <div class="card-img-overlay text-danger ">
+                              <h5 class="card-title text-uppercase text-center border border-danger font-weight-bold shadow-lg p-3 mb-5 rounded">{{$vignette->legende}}</h5>
+                              @auth
+                              <p class="card-text text-right">{{$vignette->description}}</p>
+                              <p class="card-text"><small class="text-muted">Statut : {{$vignette->description}}</small></p>
+                               @endauth 
+                              
+
                             </div>
-                        </div>
+                          </div>
+                        @endif
                         @endforeach
 
                        
@@ -92,6 +106,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>          
     </body>
 </html>
